@@ -149,7 +149,7 @@ namespace SnakeGame
             }
 
             // Check if the snake collides with the walls
-            if (newpositionX < 0 || newpositionX >= width || newpositionY < 0 || newpositionY >= height)
+            if (newpositionX < 0 || newpositionX >= width+1 || newpositionY < 0 || newpositionY >= height+1)
             {
                 gameOver = true;
                 return;
@@ -202,13 +202,13 @@ namespace SnakeGame
         {
             var random = new Random();//
 
-            food = new Food(random.Next(0, width), random.Next(0, height));
+            food = new Food(random.Next(1, width-11), random.Next(1, height-11));
 
             // Ensure food does not appear on the snake
             while (SnakeBody.Any(segment => segment.X == food.X && segment.Y == food.Y))
             {
                 Console.CursorVisible = false;
-                food = new Food(random.Next(0, width), random.Next(0, height));
+                food = new Food(random.Next(0, width+1), random.Next(0, height+1));
             }
         }
 
@@ -218,18 +218,18 @@ namespace SnakeGame
 
             // Draw the border
             Console.ForegroundColor = ConsoleColor.White;
-            for (int x = 2; x <= width; x++)
+            for (int x = 1; x <= width; x++)
             {
-                Console.SetCursorPosition(x, 0);
+                Console.SetCursorPosition(x, 1);
                 Console.Write("■");
-                Console.SetCursorPosition(x, height + 2);
+                Console.SetCursorPosition(x, height+1);
                 Console.Write("■");
             }
-            for (int y = 1; y <= height + 1; y++)
+            for (int y = 1; y <= height +1; y++)
             {
-                Console.SetCursorPosition(1, y);
+                Console.SetCursorPosition(0, y);
                 Console.WriteLine("▐");
-                Console.SetCursorPosition(width, y);
+                Console.SetCursorPosition(width+1, y);
                 Console.Write("▐");
             }
             Console.ResetColor();
